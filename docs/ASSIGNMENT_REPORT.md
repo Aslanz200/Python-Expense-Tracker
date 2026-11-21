@@ -1,0 +1,68 @@
+# Assignment #05 — Evidence-Based Audit Report
+
+## Project and baseline
+- Repository: https://github.com/Aslanz200/Python-Expense-Tracker
+- Baseline branch: `main`
+- Baseline commit: `d9ec7bb343c7f516cff339e679928ce8e4d42146` (verify against local `git rev-parse HEAD`)
+- Working branch: `assignment-05-audit`
+- Entry point: `Simple_Expense_Tracker.py`
+- Architecture: single-file Tkinter desktop GUI; expense data held in memory; JSON export.
+- Repository files: `Simple_Expense_Tracker.py`, `README.md`, `LICENSE`, `Simple Expense Tracker.pyproj`, `Simple Expense Tracker.sln`.
+- Dependencies: Python standard library (`tkinter`, `json`, `datetime`); no dependency manifest or automated test suite observed in repository.
+
+## Task 1 — Baseline and context
+### Acceptance criteria (proposed; validate manually)
+1. User can enter a monthly budget.
+2. User can add a valid expense with date, category and amount.
+3. Total expenses and remaining budget are updated correctly.
+4. User can add a new category.
+5. User can export current data to JSON.
+
+### Baseline commands and results
+| Command/check | Actual result | Evidence |
+| --- | --- | --- |
+| `python3 --version` | Pending local execution | Terminal output |
+| `python3 -m py_compile Simple_Expense_Tracker.py` | Pending local execution | Terminal output |
+| `python3 Simple_Expense_Tracker.py` | Pending local GUI execution | Screenshot and observation |
+| Add budget 1000, expense 100; verify remaining 900 | Pending manual execution | Screenshot and observation |
+| Automated tests | No test files found in repository; no test run claimed | Repository inspection |
+
+### Candidate weaknesses (source review; not yet runtime verified)
+- `add_expense()` stores date strings without parsing or validation.
+- `add_expense()` converts amounts with `float()` but does not reject negative, zero or non-finite values.
+- `README.md` documents `python expense_tracker.py`, but the tracked entry point is `Simple_Expense_Tracker.py`.
+- UI, calculations and JSON persistence are tightly coupled in `ExpenseTrackerApp`.
+- No automated tests are included.
+
+### Observed facts vs assumptions
+Repository files and code are observed through GitHub. GUI behavior, actual command outputs and runtime effects are **not verified yet**.
+
+## Task 2 — Agent instructions
+Pending: create `AGENTS.md` with project map, safe commands, prohibited actions and review gates.
+
+## Task 3 — Pattern decision
+Pending: evaluate whether extracting validation/business rules is justified; at most one focused refactor.
+
+## Task 4 — Read-only AI risk review
+Pending: 5+ findings in 3+ categories; independently classify confirmed/plausible/unsupported.
+
+## Task 5 — Risk register
+Pending: `docs/RISK_REGISTER.md`; score likelihood × impact and prioritize two confirmed risks.
+
+## Task 6 — Agent readiness
+Pending: assess documentation, setup, reproducibility, tests, logging, security and agent boundaries; assign level 1–3.
+
+## Task 7 — Mitigation and verification
+Pending: two minimal mitigations for confirmed risks, targeted tests, before/after evidence and residual risk.
+
+## Task 8 — Background agent safeguards
+Pending: hypothetical isolated branch/worktree task with allowed files/commands, time limit, prohibited operations, artifacts, human review and rollback.
+
+## Task 9 — Release decision
+Pending: GO / CONDITIONAL / NO-GO with evidence.
+
+## Task 10 — AI reflection
+Pending: 200–300 words after work and verification.
+
+## Evidence policy
+Do not invent executions, pass counts, screenshots or verification. Record AI proposals separately from personally checked findings. Preserve baseline and final commit references.
