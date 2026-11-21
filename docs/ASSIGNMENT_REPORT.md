@@ -66,3 +66,12 @@ Pending: 200–300 words after work and verification.
 
 ## Evidence policy
 Do not invent executions, pass counts, screenshots or verification. Record AI proposals separately from personally checked findings. Preserve baseline and final commit references.
+
+### Reproduced defect — R01 (2026-11-21)
+- Source: user-provided macOS GUI screenshot `Screenshot 2026-11-21 at 18.23.14.png` in assignment conversation.
+- Input sequence: monthly budget $1000; Food expense $100; second Food expense -$500, both dated 2026-11-21.
+- Observed: total expenses **-$400.00**; remaining budget **$1400.00**.
+- Classification: **confirmed correctness defect** for an expense-only application. The code accepts a negative `float` without a positive-value check. Refunds would need explicit separate handling if supported.
+- Risk scoring (initial): likelihood 3/3, impact 2/3, score **6/9**; provisional until full risk review.
+- Proposed fix (not implemented): reject amounts <= 0 and non-finite amounts; add automated tests.
+- Evidence limitations: screenshot verifies GUI state; no terminal output or automated test result is claimed.
