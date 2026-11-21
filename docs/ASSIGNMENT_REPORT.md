@@ -84,3 +84,31 @@ Do not invent executions, pass counts, screenshots or verification. Record AI pr
 - Classification: **confirmed correctness defect**, input date is stored as unvalidated string.
 - Proposed fix (not implemented): parse using `datetime.strptime(date, '%Y-%m-%d')` and require canonical ISO date formatting; add targeted tests.
 - Screenshot demonstrates GUI behavior only; no automated test result claimed.
+
+## Implementation update — 2026-11-21
+### Task 3: Pattern decision
+The baseline `ExpenseTrackerApp` combines UI code with input validation and calculations. Strategy or Adapter would add abstraction without a variable algorithm or external interface to adapt. **Decision: no formal design pattern is justified.** Instead, one focused structural improvement extracts pure validation into `expense_validation.py` and calls it from `add_expense()`. This is a small separation-of-concerns refactoring, not a claim that a named pattern was implemented.
+
+### Tasks 4–5: Risk assessment
+See `docs/RISK_REGISTER.md`: seven evaluated candidates across correctness, maintainability, agent operations, reproducibility, and security/data integrity. R01 and R02 are confirmed by the user's baseline GUI screenshots and source review. R06 remains plausible/unverified; R07 unsupported.
+
+### Task 7: Mitigations implemented — verification pending
+- R01: `validate_expense` rejects non-positive and non-finite amounts.
+- R02: `validate_expense` checks strict ISO date format and real calendar dates.
+- The Tkinter `add_expense` handler now invokes the validator before appending to `self.expenses`.
+- Added `tests/test_expense_validation.py` with eight `unittest` test methods.
+- **Local test evidence**: `python -m unittest discover -s tests -v` executed on a manually reconstructed local copy of the validation module and tests: **8 tests passed**, 0 failures, 0 errors. This is NOT a full checkout of the GitHub branch, so it does not prove integration or GUI behavior. The exact GitHub branch must be tested locally by the student.
+- **Baseline**: user screenshots establish original GUI acceptance of negative expenses and impossible dates. No baseline automated suite existed; do not claim baseline automated tests failed.
+- **Final integration GUI test, syntax check and branch test run**: pending student execution.
+- **Residual risk**: pending verification; the GUI still combines other responsibilities and JSON save errors are not handled.
+
+### Next verification commands on `assignment-05-audit`
+```bash
+git fetch origin
+git switch assignment-05-audit
+git pull --ff-only
+python3 -m py_compile Simple_Expense_Tracker.py expense_validation.py
+python3 -m unittest discover -s tests -v
+python3 Simple_Expense_Tracker.py
+```
+GUI: verify valid expense still works, then attempt negative amount -500 and impossible date 2026-99-99. Both must show an error and leave the expense list and totals unchanged. Capture actual outputs and after-fix screenshots.
