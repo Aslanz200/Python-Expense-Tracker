@@ -156,3 +156,6 @@ For future agent instructions, I would require direct evidence links, explicit e
 - `AGENTS.md`, `docs/RISK_REGISTER.md`, `docs/AI_USAGE_LOG.md`, tests, code and README updates: present on assignment branch.
 - Screenshots: supplied in conversation, to be embedded in consolidated PDF; not claimed as GitHub-hosted.
 - Final release: conditional; human review and missing GUI regression checks noted.
+
+### Additional independent GUI verification (student report)
+The student subsequently confirmed that both invalid-input cases were tested **separately** in the corrected macOS GUI: a negative expense amount produced an error, and an impossible calendar date produced an error. This is user-reported manual verification; the earlier combined-input screenshot and eight-test Terminal output are the supplied visual/automated evidence. No additional screenshot or independent observation of the two separate GUI runs is claimed. Both targeted mitigations are considered manually verified; valid-input, category, and JSON-export regression checks remain outside this evidence.
