@@ -23,8 +23,8 @@
 | --- | --- | --- |
 | `python3 --version` | Pending local execution | Terminal output |
 | `python3 -m py_compile Simple_Expense_Tracker.py` | Pending local execution | Terminal output |
-| `python3 Simple_Expense_Tracker.py` | Pending local GUI execution | Screenshot and observation |
-| Add budget 1000, expense 100; verify remaining 900 | Pending manual execution | Screenshot and observation |
+| `python3 Simple_Expense_Tracker.py` | GUI launched successfully on macOS (user-provided screenshot, 2026-11-21); exact command/terminal output not supplied | Screenshot `Screenshot 2026-11-21 at 18.20.43.png` supplied in chat |
+| Add budget 1000, expense 100; verify remaining 900 | PASS (visual): budget $1000.00, Food expense $100.00 dated 2026-11-21, total $100.00, remaining $900.00 | User-provided screenshot, 2026-11-21 |
 | Automated tests | No test files found in repository; no test run claimed | Repository inspection |
 
 ### Candidate weaknesses (source review; not yet runtime verified)
@@ -35,7 +35,7 @@
 - No automated tests are included.
 
 ### Observed facts vs assumptions
-Repository files and code are observed through GitHub. GUI behavior, actual command outputs and runtime effects are **not verified yet**.
+Repository files and code are observed through GitHub. Basic GUI launch and one expense calculation are visually verified from a user-provided screenshot. Exact terminal command output, syntax compilation, category addition and JSON export remain **unverified**.
 
 ## Task 2 — Agent instructions
 Pending: create `AGENTS.md` with project map, safe commands, prohibited actions and review gates.
