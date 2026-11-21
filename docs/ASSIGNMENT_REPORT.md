@@ -75,3 +75,12 @@ Do not invent executions, pass counts, screenshots or verification. Record AI pr
 - Risk scoring (initial): likelihood 3/3, impact 2/3, score **6/9**; provisional until full risk review.
 - Proposed fix (not implemented): reject amounts <= 0 and non-finite amounts; add automated tests.
 - Evidence limitations: screenshot verifies GUI state; no terminal output or automated test result is claimed.
+
+### Reproduced defect — R02 (2026-11-21)
+- Source: macOS GUI screenshot `Screenshot 2026-11-21 at 18.27.51.png` supplied in assignment conversation.
+- Input: date `2026-99-99`, category `Food`, amount `50`.
+- Expected: reject impossible calendar date.
+- Actual: expense row `2026-99-99 | Food | $50.00` appears in GUI. Budget now $1000, total -$350, remaining $1350 (includes prior negative-expense test).
+- Classification: **confirmed correctness defect**, input date is stored as unvalidated string.
+- Proposed fix (not implemented): parse using `datetime.strptime(date, '%Y-%m-%d')` and require canonical ISO date formatting; add targeted tests.
+- Screenshot demonstrates GUI behavior only; no automated test result claimed.
