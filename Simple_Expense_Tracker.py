@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog, filedialog
 import json
 from datetime import datetime
+from expense_validation import validate_expense
 
 class ExpenseTrackerApp:
     def __init__(self, root):
@@ -93,9 +94,8 @@ class ExpenseTrackerApp:
 
     def add_expense(self):
         try:
-            date = self.date_entry.get()
+            date, amount = validate_expense(self.date_entry.get(), self.amount_entry.get())
             category = self.category_combobox.get()
-            amount = float(self.amount_entry.get())
 
             self.expenses.append({
                 'date': date,
