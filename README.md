@@ -28,7 +28,7 @@ This Expense Tracker and Budget Planner is a simple, user-friendly Python applic
 
 1. Run the script:
    ```
-   python expense_tracker.py
+   python3 Simple_Expense_Tracker.py
    ```
 2. When prompted, enter your monthly budget.
 3. Use the interface to add expenses, manage categories, and view your spending.
@@ -65,3 +65,7 @@ Contributions to improve the Expense Tracker are welcome. Please feel free to fo
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
+
+## Verification (Assignment #05)
+
+Run `python3 -m unittest discover -s tests -v` to execute the eight regression tests. Input validation rejects non-positive or non-finite amounts and impossible dates. The Tkinter GUI requires a graphical desktop environment. The audit and risk register are in `docs/`; agent instructions are in `AGENTS.md`.
