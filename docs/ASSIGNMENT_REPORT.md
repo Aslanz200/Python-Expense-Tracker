@@ -112,3 +112,47 @@ python3 -m unittest discover -s tests -v
 python3 Simple_Expense_Tracker.py
 ```
 GUI: verify valid expense still works, then attempt negative amount -500 and impossible date 2026-99-99. Both must show an error and leave the expense list and totals unchanged. Capture actual outputs and after-fix screenshots.
+
+## Final verification evidence — 2026-11-21
+**Student-run command:** `python3 -m unittest discover -s tests -v`.
+
+**Observed output:** Eight named tests passed: date format, impossible date, invalid calendar day, negative amount, non-finite amount, valid amount, leap day, zero amount. Terminal summary: `Ran 8 tests in 0.006s`; `OK`.
+
+**Student-run GUI:** screenshot `Screenshot 2026-11-21 at 18.38.28.png`. Inputs: date `2026-99-99`, category Food, amount `-500`. Observed error dialog `Invalid input. Please check your entries.`; expense list empty, total $0.00, budget $1000.00, remaining $1000.00. **Limitation:** GUI screenshot tests both invalid fields simultaneously, so does not independently isolate each rule. Automated tests do isolate them.
+
+**Residual R01/R02:** likelihood provisionally reduced from 3 to 1, impact remains 2, residual score **2/9** each, conditional on the same code being deployed. Future changes could regress validation; tests and human review are required. R04 reduced from 6 to 4 (L2×I2) due to new focused tests, but GUI, save, category and export remain unautomated.
+
+## Task 6 — Agent readiness audit
+| Area | Baseline | Working branch |
+|---|---|---|
+| Repository structure | Simple but UI and logic coupled | Validation separated; focused change |
+| README/setup | Wrong filename in launch command | Corrected to `python3 Simple_Expense_Tracker.py` |
+| Dependencies | Standard library only, no lockfile required | Unchanged; Tkinter availability platform-dependent |
+| Tests | No automated suite | Eight passing validation tests, student-run |
+| Build/lint | No formal build or lint pipeline | Syntax compilation and lint results not supplied |
+| Logging/security | No structured logging; JSON save exceptions unhandled | Unchanged |
+| Agent boundaries | No root agent instructions | Root `AGENTS.md` committed |
+
+**Readiness: Level 2 — Documented.** Clear agent instructions and reproducible focused tests exist, but insufficient broad test coverage, CI and safe persistence/error-handling evidence prevent Level 3 Agent-ready. Baseline was Level 1.
+
+## Task 8 — Proposed background-agent task (hypothetical; not executed)
+Task: improve JSON save error handling in an isolated `agent/save-error-handling` branch/worktree based on the reviewed assignment branch. Allow only `Simple_Expense_Tracker.py`, `tests/test_save_data.py`, and task notes. Allow `python3 -m unittest discover -s tests -v`, `python3 -m py_compile ...`, and `git diff --check`; maximum 30 minutes. Forbid secrets, network requests, new dependencies, deletion of user files, production deployment, force pushes and merges. Deliver change summary, full diff, test output, identified risks and rollback command `git switch assignment-05-audit` (discard isolated worktree only after review). Human must inspect diff and approve before merging or releasing. No autonomous task was launched.
+
+## Task 9 — Release decision
+**CONDITIONAL GO for an educational/demo version, NO-GO for financial production use.** Both targeted defects are covered by passing student-run tests and one combined GUI rejection screenshot. Remaining gaps: no independently supplied final valid-input GUI regression, no category/export regression, no full build/lint/CI, and unhandled JSON save errors. Human reviewer must confirm these before a broader release. The branch has not been merged to `main`.
+
+## Task 10 — AI reflection (approximately 220 words)
+I used ChatGPT (GPT-6) to inspect a small Tkinter expense tracker, structure the audit and propose changes. The assistant helped identify input validation as a high-value target and proposed a compact pure function rather than a large architectural rewrite. This was useful because the original interface mixed parsing and GUI behavior, making individual validation rules difficult to test. I also used the assistant to draft AGENTS.md, a risk register, and regression tests.
+
+Not every AI-generated statement was reliable. Early documentation referred to screenshots by filename without placing them in the repository, which made the evidence hard to inspect. The assistant also suggested future verification commands before their results existed. I corrected this by requiring clear distinctions among source inspection, student-executed tests, and unverified proposals. In the risk review, a possible save failure remained unverified rather than being described as an observed incident; a speculative dependency vulnerability was classified as unsupported.
+
+I independently ran the original GUI, reproduced negative-expense and impossible-date behavior, and supplied screenshots. After the changes, I ran eight automated tests, all of which passed, and checked that combined invalid input produced an error without changing the budget. The GUI screenshot alone does not isolate both checks, so the separate automated tests matter.
+
+For future agent instructions, I would require direct evidence links, explicit execution logs, minimal diffs, and a mandatory human review gate before any merge. This would make the assistant's work easier to audit and reduce overconfident claims.
+
+## Submission checklist
+- Repository and final branch: `https://github.com/Aslanz200/Python-Expense-Tracker/tree/assignment-05-audit`.
+- Baseline ref: `d9ec7bb343c7f516cff339e679928ce8e4d42146` (still requires independent confirmation).
+- `AGENTS.md`, `docs/RISK_REGISTER.md`, `docs/AI_USAGE_LOG.md`, tests, code and README updates: present on assignment branch.
+- Screenshots: supplied in conversation, to be embedded in consolidated PDF; not claimed as GitHub-hosted.
+- Final release: conditional; human review and missing GUI regression checks noted.
